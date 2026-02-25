@@ -108,9 +108,37 @@ public partial class MainForm : Form
     private void dgvOrders_CellClick(object? sender, DataGridViewCellEventArgs e)
     {
         if (e.RowIndex < 0 || e.ColumnIndex != colEdit.Index) return;
-        var row = dgvOrders.Rows[e.RowIndex];
+        if (!TryGetOrderIdFromRow(e.RowIndex, out var orderId)) return;
+        OpenOrderDetail(orderId);
+    }
+
+    /// <summary>
+    /// 리스트 행 더블클릭 시 주문 상세(수정) 창 열기
+    /// </summary>
+    private void dgvOrders_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex < 0) return;
+        if (!TryGetOrderIdFromRow(e.RowIndex, out var orderId)) return;
+        OpenOrderDetail(orderId);
+    }
+
+    /// <summary>
+    /// 해당 행에서 주문 ID 추출
+    /// </summary>
+    private bool TryGetOrderIdFromRow(int rowIndex, out int orderId)
+    {
+        orderId = 0;
+        if (rowIndex < 0 || rowIndex >= dgvOrders.Rows.Count) return false;
+        var row = dgvOrders.Rows[rowIndex];
         var orderIdCell = row.Cells["colOrderId"]?.Value;
-        if (orderIdCell == null || !int.TryParse(orderIdCell.ToString(), out var orderId)) return;
+        return orderIdCell != null && int.TryParse(orderIdCell.ToString(), out orderId);
+    }
+
+    /// <summary>
+    /// 주문 상세(수정) 창 열기 후 리스트/요약 새로고침
+    /// </summary>
+    private void OpenOrderDetail(int orderId)
+    {
         var (order, items) = OrderRepository.GetOrderWithItems(orderId);
         if (order == null) return;
         using var f = new OrderForm(order, items);
@@ -131,11 +159,6 @@ public partial class MainForm : Form
     {
         using var f = new ReportForm();
         f.ShowDialog();
-    }
-
-    private void btnBackup_Click(object? sender, EventArgs e)
-    {
-        BackupService.OpenBackupFolder();
     }
 
     /// <summary>

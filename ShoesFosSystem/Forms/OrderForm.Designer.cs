@@ -34,9 +34,7 @@ partial class OrderForm
         txtOrderMemo = new TextBox();
         lblOrderMemo = new Label();
         panelButtons = new Panel();
-        btnSave = new Button();
         btnSaveComplete = new Button();
-        btnCancelOrder = new Button();
         btnClose = new Button();
         panelHead.SuspendLayout();
         panelItems.SuspendLayout();
@@ -53,6 +51,7 @@ partial class OrderForm
         panelHead.Controls.Add(lblCustomerName);
         panelHead.Controls.Add(txtCustomerPhone);
         panelHead.Controls.Add(lblCustomerPhone);
+        panelHead.BackColor = Color.FromArgb(255, 255, 255);
         panelHead.Dock = DockStyle.Top;
         panelHead.Padding = new Padding(16, 12, 16, 8);
         panelHead.Size = new Size(784, 120);
@@ -103,9 +102,9 @@ partial class OrderForm
         lblCustomerPhone.Font = new Font("맑은 고딕", 13F);
         lblCustomerPhone.Location = new Point(320, 50);
         lblCustomerPhone.Name = "lblCustomerPhone";
-        lblCustomerPhone.Size = new Size(52, 25);
+        lblCustomerPhone.Size = new Size(69, 25);
         lblCustomerPhone.TabIndex = 4;
-        lblCustomerPhone.Text = "전화";
+        lblCustomerPhone.Text = "연락처";
         //
         // txtCustomerPhone
         //
@@ -117,6 +116,8 @@ partial class OrderForm
         //
         // panelItems
         //
+        lblItemHint = new Label();
+        panelItems.Controls.Add(lblItemHint);
         panelItems.Controls.Add(dgvItems);
         panelItems.Controls.Add(btnAddItem);
         panelItems.Controls.Add(btnDeleteItem);
@@ -126,21 +127,36 @@ partial class OrderForm
         panelItems.Controls.Add(btnExtra10000);
         panelItems.Dock = DockStyle.Fill;
         panelItems.Padding = new Padding(16, 8, 16, 8);
-        panelItems.Size = new Size(784, 280);
+        panelItems.Size = new Size(784, 300);
         panelItems.TabIndex = 1;
+        //
+        // lblItemHint
+        //
+        lblItemHint.AutoSize = true;
+        lblItemHint.Font = new Font("맑은 고딕", 12F);
+        lblItemHint.ForeColor = Color.FromArgb(80, 80, 80);
+        lblItemHint.Location = new Point(16, 4);
+        lblItemHint.Name = "lblItemHint";
+        lblItemHint.Size = new Size(480, 21);
+        lblItemHint.TabIndex = 10;
+        lblItemHint.Text = "품목: 아래 표에서 \"신발 종류\" 셀을 클릭해 선택하세요. 여러 개는 \"품목 추가\"로 줄을 더 넣으세요.";
         //
         // dgvItems
         //
+        dgvItems.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         dgvItems.AllowUserToAddRows = false;
         dgvItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         dgvItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dgvItems.Dock = DockStyle.Fill;
         dgvItems.Font = new Font("맑은 고딕", 12F);
-        dgvItems.Location = new Point(16, 8);
+        dgvItems.Location = new Point(16, 30);
         dgvItems.Name = "dgvItems";
         dgvItems.RowHeadersVisible = false;
+        dgvItems.BackgroundColor = Color.White;
+        dgvItems.BorderStyle = BorderStyle.None;
+        dgvItems.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+        dgvItems.GridColor = Color.FromArgb(230, 230, 230);
         dgvItems.RowTemplate.Height = 38;
-        dgvItems.Size = new Size(752, 180);
+        dgvItems.Size = new Size(752, 162);
         dgvItems.TabIndex = 0;
         dgvItems.CellEndEdit += dgvItems_CellEndEdit;
         dgvItems.SelectionChanged += dgvItems_SelectionChanged;
@@ -148,7 +164,7 @@ partial class OrderForm
         // btnAddItem
         //
         btnAddItem.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-        btnAddItem.Location = new Point(16, 196);
+        btnAddItem.Location = new Point(16, 216);
         btnAddItem.Name = "btnAddItem";
         btnAddItem.Size = new Size(120, 44);
         btnAddItem.TabIndex = 1;
@@ -159,7 +175,7 @@ partial class OrderForm
         // btnDeleteItem
         //
         btnDeleteItem.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-        btnDeleteItem.Location = new Point(146, 196);
+        btnDeleteItem.Location = new Point(146, 216);
         btnDeleteItem.Name = "btnDeleteItem";
         btnDeleteItem.Size = new Size(120, 44);
         btnDeleteItem.TabIndex = 2;
@@ -171,7 +187,7 @@ partial class OrderForm
         //
         lblExtraPreset.AutoSize = true;
         lblExtraPreset.Font = new Font("맑은 고딕", 12F);
-        lblExtraPreset.Location = new Point(290, 206);
+        lblExtraPreset.Location = new Point(290, 226);
         lblExtraPreset.Name = "lblExtraPreset";
         lblExtraPreset.Size = new Size(122, 21);
         lblExtraPreset.TabIndex = 3;
@@ -180,7 +196,7 @@ partial class OrderForm
         // btnExtra3000
         //
         btnExtra3000.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-        btnExtra3000.Location = new Point(418, 196);
+        btnExtra3000.Location = new Point(418, 216);
         btnExtra3000.Name = "btnExtra3000";
         btnExtra3000.Size = new Size(70, 44);
         btnExtra3000.TabIndex = 4;
@@ -191,7 +207,7 @@ partial class OrderForm
         // btnExtra5000
         //
         btnExtra5000.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-        btnExtra5000.Location = new Point(494, 196);
+        btnExtra5000.Location = new Point(494, 216);
         btnExtra5000.Name = "btnExtra5000";
         btnExtra5000.Size = new Size(70, 44);
         btnExtra5000.TabIndex = 5;
@@ -202,7 +218,7 @@ partial class OrderForm
         // btnExtra10000
         //
         btnExtra10000.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-        btnExtra10000.Location = new Point(570, 196);
+        btnExtra10000.Location = new Point(570, 216);
         btnExtra10000.Name = "btnExtra10000";
         btnExtra10000.Size = new Size(80, 44);
         btnExtra10000.TabIndex = 6;
@@ -212,7 +228,7 @@ partial class OrderForm
         //
         // panelTotal
         //
-        panelTotal.BackColor = Color.FromArgb(245, 245, 245);
+        panelTotal.BackColor = Color.FromArgb(248, 248, 248);
         panelTotal.Controls.Add(lblTotalLabel);
         panelTotal.Controls.Add(lblTotalAmount);
         panelTotal.Controls.Add(txtOrderMemo);
@@ -265,9 +281,7 @@ partial class OrderForm
         //
         btnDeleteOrder = new Button();
         btnPrint = new Button();
-        panelButtons.Controls.Add(btnSave);
         panelButtons.Controls.Add(btnSaveComplete);
-        panelButtons.Controls.Add(btnCancelOrder);
         panelButtons.Controls.Add(btnDeleteOrder);
         panelButtons.Controls.Add(btnPrint);
         panelButtons.Controls.Add(btnClose);
@@ -276,73 +290,58 @@ partial class OrderForm
         panelButtons.Size = new Size(784, 80);
         panelButtons.TabIndex = 3;
         //
-        // btnSave
-        //
-        btnSave.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-        btnSave.Location = new Point(16, 12);
-        btnSave.Name = "btnSave";
-        btnSave.Size = new Size(100, 52);
-        btnSave.TabIndex = 0;
-        btnSave.Text = "저장";
-        btnSave.UseVisualStyleBackColor = true;
-        btnSave.Click += btnSave_Click;
-        //
-        // btnSaveComplete
+        // btnSaveComplete (주문완료)
         //
         btnSaveComplete.BackColor = Color.FromArgb(70, 130, 180);
+        btnSaveComplete.FlatAppearance.BorderSize = 0;
         btnSaveComplete.FlatStyle = FlatStyle.Flat;
-        btnSaveComplete.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
+        btnSaveComplete.Font = new Font("맑은 고딕", 14F, FontStyle.Bold);
         btnSaveComplete.ForeColor = Color.White;
-        btnSaveComplete.Location = new Point(122, 12);
+        btnSaveComplete.Location = new Point(16, 12);
         btnSaveComplete.Name = "btnSaveComplete";
-        btnSaveComplete.Size = new Size(120, 52);
-        btnSaveComplete.TabIndex = 1;
-        btnSaveComplete.Text = "저장 + 완료";
+        btnSaveComplete.Size = new Size(140, 52);
+        btnSaveComplete.TabIndex = 0;
+        btnSaveComplete.Text = "주문완료";
         btnSaveComplete.UseVisualStyleBackColor = false;
-        btnSaveComplete.Click += btnSaveComplete_Click;
-        //
-        // btnCancelOrder
-        //
-        btnCancelOrder.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-        btnCancelOrder.ForeColor = Color.DarkRed;
-        btnCancelOrder.Location = new Point(248, 12);
-        btnCancelOrder.Name = "btnCancelOrder";
-        btnCancelOrder.Size = new Size(100, 52);
-        btnCancelOrder.TabIndex = 2;
-        btnCancelOrder.Text = "취소처리";
-        btnCancelOrder.UseVisualStyleBackColor = true;
-        btnCancelOrder.Click += btnCancelOrder_Click;
+        btnSaveComplete.Click += btnCompleteOrder_Click;
         //
         // btnDeleteOrder
         //
+        btnDeleteOrder.BackColor = Color.FromArgb(198, 40, 40);
+        btnDeleteOrder.FlatAppearance.BorderSize = 0;
+        btnDeleteOrder.FlatStyle = FlatStyle.Flat;
         btnDeleteOrder.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-        btnDeleteOrder.ForeColor = Color.DarkRed;
-        btnDeleteOrder.Location = new Point(354, 12);
+        btnDeleteOrder.ForeColor = Color.White;
+        btnDeleteOrder.Location = new Point(168, 12);
         btnDeleteOrder.Name = "btnDeleteOrder";
-        btnDeleteOrder.Size = new Size(90, 52);
-        btnDeleteOrder.TabIndex = 3;
+        btnDeleteOrder.Size = new Size(100, 52);
+        btnDeleteOrder.TabIndex = 1;
         btnDeleteOrder.Text = "주문 삭제";
-        btnDeleteOrder.UseVisualStyleBackColor = true;
+        btnDeleteOrder.UseVisualStyleBackColor = false;
         btnDeleteOrder.Click += btnDeleteOrder_Click;
         //
         // btnPrint
         //
+        btnPrint.BackColor = Color.FromArgb(56, 142, 60);
+        btnPrint.FlatAppearance.BorderSize = 0;
+        btnPrint.FlatStyle = FlatStyle.Flat;
         btnPrint.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-        btnPrint.Location = new Point(450, 12);
+        btnPrint.ForeColor = Color.White;
+        btnPrint.Location = new Point(282, 12);
         btnPrint.Name = "btnPrint";
-        btnPrint.Size = new Size(90, 52);
-        btnPrint.TabIndex = 4;
+        btnPrint.Size = new Size(100, 52);
+        btnPrint.TabIndex = 2;
         btnPrint.Text = "출력";
-        btnPrint.UseVisualStyleBackColor = true;
+        btnPrint.UseVisualStyleBackColor = false;
         btnPrint.Click += btnPrint_Click;
         //
         // btnClose
         //
         btnClose.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
-        btnClose.Location = new Point(546, 12);
+        btnClose.Location = new Point(396, 12);
         btnClose.Name = "btnClose";
-        btnClose.Size = new Size(80, 52);
-        btnClose.TabIndex = 5;
+        btnClose.Size = new Size(100, 52);
+        btnClose.TabIndex = 3;
         btnClose.Text = "닫기";
         btnClose.UseVisualStyleBackColor = true;
         btnClose.Click += (s, e) => { DialogResult = DialogResult.Cancel; Close(); };
@@ -351,6 +350,7 @@ partial class OrderForm
         //
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.FromArgb(250, 250, 250);
         ClientSize = new Size(784, 570);
         Controls.Add(panelItems);
         Controls.Add(panelTotal);
@@ -359,7 +359,7 @@ partial class OrderForm
         Font = new Font("맑은 고딕", 12F);
         MinimumSize = new Size(750, 550);
         StartPosition = FormStartPosition.CenterParent;
-        Text = "주문";
+        Text = "주문 상세";
         panelHead.ResumeLayout(false);
         panelHead.PerformLayout();
         panelItems.ResumeLayout(false);
@@ -379,6 +379,7 @@ partial class OrderForm
     private TextBox txtCustomerPhone;
     private Label lblCustomerPhone;
     private Panel panelItems;
+    private Label lblItemHint;
     private DataGridView dgvItems;
     private Button btnAddItem;
     private Button btnDeleteItem;
@@ -392,9 +393,7 @@ partial class OrderForm
     private TextBox txtOrderMemo;
     private Label lblOrderMemo;
     private Panel panelButtons;
-    private Button btnSave;
     private Button btnSaveComplete;
-    private Button btnCancelOrder;
     private Button btnDeleteOrder;
     private Button btnPrint;
     private Button btnClose;

@@ -41,6 +41,7 @@ partial class ReportForm
         //
         // panelTop
         //
+        panelTop.BackColor = Color.FromArgb(255, 255, 255);
         panelTop.Controls.Add(lblStart);
         panelTop.Controls.Add(dtpStart);
         panelTop.Controls.Add(lblEnd);
@@ -230,6 +231,7 @@ partial class ReportForm
         //
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.FromArgb(250, 250, 250);
         ClientSize = new Size(684, 500);
         Controls.Add(btnClose);
         Controls.Add(btnExportCsv);

@@ -43,6 +43,12 @@ public partial class OrderForm : Form
         _shoeTypes = ShoeTypeRepository.GetAll(activeOnly: true);
         BuildGrid();
         LoadItemsIntoGrid();
+        // 새 주문(품목 0개)이면 품목 한 줄 자동 추가 → 바로 '신발 종류' 선택 가능
+        if (dgvItems.Rows.Count == 0 && _shoeTypes.Count > 0)
+        {
+            var first = _shoeTypes[0];
+            dgvItems.Rows.Add(_comboDisplayStrings[0], 1, first.BasePrice, 0, "", first.BasePrice, first.Id);
+        }
         UpdateTotalLabel();
         // 셀 클릭 시 바로 콤보 편집 가능하도록
         dgvItems.EditMode = DataGridViewEditMode.EditOnEnter;
@@ -220,15 +226,15 @@ public partial class OrderForm : Form
         UpdateTotalLabel();
     }
 
-    private void btnSave_Click(object? sender, EventArgs e) => SaveOrder(status: null);
-    private void btnSaveComplete_Click(object? sender, EventArgs e) => SaveOrder(status: "COMPLETED");
-
-    private void SaveOrder(string? status)
+    /// <summary>
+    /// 주문완료: 저장 후 상태를 완료로 설정하고 창 닫기
+    /// </summary>
+    private void btnCompleteOrder_Click(object? sender, EventArgs e)
     {
         var items = CollectItemsFromGrid();
         if (items.Count == 0)
         {
-            MessageBox.Show("품목을 1개 이상 입력해 주세요.", "저장 불가", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("품목을 1개 이상 입력해 주세요.", "주문완료 불가", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
         foreach (var it in items)
@@ -243,7 +249,7 @@ public partial class OrderForm : Form
         _order.CustomerName = string.IsNullOrWhiteSpace(txtCustomerName.Text) ? null : txtCustomerName.Text.Trim();
         _order.CustomerPhone = string.IsNullOrWhiteSpace(txtCustomerPhone.Text) ? null : txtCustomerPhone.Text.Trim();
         _order.Memo = string.IsNullOrWhiteSpace(txtOrderMemo.Text) ? null : txtOrderMemo.Text.Trim();
-        if (!string.IsNullOrEmpty(status)) _order.Status = status;
+        _order.Status = "COMPLETED";
 
         try
         {
@@ -254,40 +260,6 @@ public partial class OrderForm : Form
         catch (Exception ex)
         {
             MessageBox.Show("저장 중 오류: " + ex.Message, "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-    }
-
-    private void btnCancelOrder_Click(object? sender, EventArgs e)
-    {
-        var items = CollectItemsFromGrid();
-        // 품목이 하나도 없으면 주문 자체를 삭제 (데이터 쌓임 방지)
-        if (items.Count == 0)
-        {
-            if (MessageBox.Show("품목이 없습니다. 이 주문을 완전히 삭제하시겠습니까?", "주문 삭제", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                return;
-            try
-            {
-                OrderRepository.DeleteOrder(_order.Id);
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("삭제 중 오류: " + ex.Message, "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return;
-        }
-        if (MessageBox.Show("이 주문을 취소 처리하시겠습니까? (매출 집계에서 제외됩니다.)", "취소 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-            return;
-        try
-        {
-            OrderRepository.UpdateOrderStatus(_order.Id, "CANCELED");
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show("취소 처리 중 오류: " + ex.Message, "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 

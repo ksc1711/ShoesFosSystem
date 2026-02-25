@@ -19,7 +19,6 @@ partial class MainForm
         btnNewOrder = new Button();
         btnPriceList = new Button();
         btnReport = new Button();
-        btnBackup = new Button();
         panelSummary = new Panel();
         lblOrderCount = new Label();
         lblTotalSales = new Label();
@@ -35,27 +34,25 @@ partial class MainForm
         ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
         SuspendLayout();
         //
-        // panelTop (TableLayoutPanel: 2행 - 1행: 날짜+버튼, 2행: 백업)
+        // panelTop (TableLayoutPanel: 1행 - 날짜 + 버튼)
         //
-        panelTop.ColumnCount = 6;
-        panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 140F));
+        panelTop.BackColor = Color.FromArgb(255, 255, 255);
+        panelTop.ColumnCount = 5;
         panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-        panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 145F));
-        panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 145F));
-        panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 145F));
+        panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+        panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+        panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
         panelTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        panelTop.RowCount = 2;
-        panelTop.RowStyles.Add(new RowStyle(SizeType.Absolute, 56F));
-        panelTop.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
+        panelTop.RowCount = 1;
+        panelTop.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
         panelTop.Controls.Add(lblDate, 0, 0);
         panelTop.Controls.Add(dtpFilter, 1, 0);
         panelTop.Controls.Add(btnNewOrder, 2, 0);
         panelTop.Controls.Add(btnPriceList, 3, 0);
         panelTop.Controls.Add(btnReport, 4, 0);
-        panelTop.Controls.Add(btnBackup, 0, 1);
         panelTop.Dock = DockStyle.Top;
-        panelTop.Padding = new Padding(12, 12, 12, 8);
-        panelTop.Size = new Size(784, 108);
+        panelTop.Padding = new Padding(14, 14, 14, 10);
+        panelTop.Size = new Size(784, 84);
         panelTop.TabIndex = 0;
         //
         // lblDate
@@ -84,6 +81,7 @@ partial class MainForm
         //
         btnNewOrder.BackColor = Color.FromArgb(70, 130, 180);
         btnNewOrder.Dock = DockStyle.Fill;
+        btnNewOrder.FlatAppearance.BorderSize = 0;
         btnNewOrder.FlatStyle = FlatStyle.Flat;
         btnNewOrder.Font = new Font("맑은 고딕", 14F, FontStyle.Bold);
         btnNewOrder.ForeColor = Color.White;
@@ -98,6 +96,8 @@ partial class MainForm
         // btnPriceList
         //
         btnPriceList.Dock = DockStyle.Fill;
+        btnPriceList.FlatAppearance.BorderSize = 0;
+        btnPriceList.FlatStyle = FlatStyle.Flat;
         btnPriceList.Font = new Font("맑은 고딕", 14F, FontStyle.Bold);
         btnPriceList.Location = new Point(453, 15);
         btnPriceList.Name = "btnPriceList";
@@ -110,6 +110,8 @@ partial class MainForm
         // btnReport
         //
         btnReport.Dock = DockStyle.Fill;
+        btnReport.FlatAppearance.BorderSize = 0;
+        btnReport.FlatStyle = FlatStyle.Flat;
         btnReport.Font = new Font("맑은 고딕", 14F, FontStyle.Bold);
         btnReport.Location = new Point(598, 15);
         btnReport.Name = "btnReport";
@@ -119,27 +121,15 @@ partial class MainForm
         btnReport.UseVisualStyleBackColor = true;
         btnReport.Click += btnReport_Click;
         //
-        // btnBackup
-        //
-        btnBackup.Anchor = AnchorStyles.Left;
-        btnBackup.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-        btnBackup.Location = new Point(15, 64);
-        btnBackup.Name = "btnBackup";
-        btnBackup.Size = new Size(160, 36);
-        btnBackup.TabIndex = 5;
-        btnBackup.Text = "백업 폴더 열기";
-        btnBackup.UseVisualStyleBackColor = true;
-        btnBackup.Click += btnBackup_Click;
-        //
         // panelSummary
         //
-        panelSummary.BackColor = Color.FromArgb(245, 245, 245);
+        panelSummary.BackColor = Color.FromArgb(248, 248, 248);
         panelSummary.Controls.Add(lblOrderCount);
         panelSummary.Controls.Add(lblTotalSales);
         panelSummary.Controls.Add(lblCancelCount);
         panelSummary.Dock = DockStyle.Top;
-        panelSummary.Padding = new Padding(16, 12, 16, 12);
-        panelSummary.Size = new Size(784, 56);
+        panelSummary.Padding = new Padding(18, 14, 18, 14);
+        panelSummary.Size = new Size(784, 58);
         panelSummary.TabIndex = 1;
         //
         // lblOrderCount
@@ -190,12 +180,19 @@ partial class MainForm
         dgvOrders.RowHeadersVisible = false;
         dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         dgvOrders.MultiSelect = false;
-        dgvOrders.Location = new Point(0, 156);
+        dgvOrders.BackgroundColor = Color.White;
+        dgvOrders.BorderStyle = BorderStyle.None;
+        dgvOrders.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+        dgvOrders.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.FromArgb(248, 248, 248), Font = new Font("맑은 고딕", 13F, FontStyle.Bold) };
+        dgvOrders.EnableHeadersVisualStyles = false;
+        dgvOrders.GridColor = Color.FromArgb(230, 230, 230);
+        dgvOrders.Location = new Point(0, 142);
         dgvOrders.Name = "dgvOrders";
         dgvOrders.RowTemplate.Height = 44;
-        dgvOrders.Size = new Size(784, 394);
+        dgvOrders.Size = new Size(784, 408);
         dgvOrders.TabIndex = 2;
         dgvOrders.CellClick += dgvOrders_CellClick;
+        dgvOrders.CellDoubleClick += dgvOrders_CellDoubleClick;
         //
         // colDailySeq
         //
@@ -237,6 +234,7 @@ partial class MainForm
         //
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.FromArgb(250, 250, 250);
         ClientSize = new Size(784, 550);
         Controls.Add(dgvOrders);
         Controls.Add(panelSummary);
@@ -258,7 +256,6 @@ partial class MainForm
     private Button btnNewOrder;
     private Button btnPriceList;
     private Button btnReport;
-    private Button btnBackup;
     private Panel panelSummary;
     private Label lblOrderCount;
     private Label lblTotalSales;

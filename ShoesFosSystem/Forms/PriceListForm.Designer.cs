@@ -29,13 +29,14 @@ partial class PriceListForm
         //
         // panelTop
         //
+        panelTop.BackColor = Color.FromArgb(255, 255, 255);
         panelTop.Controls.Add(btnAdd);
         panelTop.Controls.Add(btnEdit);
         panelTop.Controls.Add(btnInactive);
         panelTop.Controls.Add(btnClose);
         panelTop.Dock = DockStyle.Top;
-        panelTop.Padding = new Padding(12, 12, 12, 8);
-        panelTop.Size = new Size(584, 70);
+        panelTop.Padding = new Padding(14, 14, 14, 10);
+        panelTop.Size = new Size(584, 72);
         panelTop.TabIndex = 0;
         //
         // btnAdd
@@ -88,14 +89,19 @@ partial class PriceListForm
         dgv.AllowUserToDeleteRows = false;
         dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        dgv.BackgroundColor = Color.White;
+        dgv.BorderStyle = BorderStyle.None;
+        dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
         dgv.Columns.AddRange(new DataGridViewColumn[] { colId, colName, colBasePrice, colIsActive });
         dgv.Dock = DockStyle.Fill;
+        dgv.EnableHeadersVisualStyles = false;
         dgv.Font = new Font("맑은 고딕", 13F);
+        dgv.GridColor = Color.FromArgb(230, 230, 230);
         dgv.ReadOnly = true;
         dgv.RowHeadersVisible = false;
         dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         dgv.MultiSelect = false;
-        dgv.Location = new Point(0, 70);
+        dgv.Location = new Point(0, 72);
         dgv.Name = "dgv";
         dgv.RowTemplate.Height = 40;
         dgv.Size = new Size(584, 391);
@@ -135,6 +141,7 @@ partial class PriceListForm
         //
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.FromArgb(250, 250, 250);
         ClientSize = new Size(584, 461);
         Controls.Add(dgv);
         Controls.Add(panelTop);
